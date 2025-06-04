@@ -13,6 +13,7 @@ headers = {
 }
 
 # --- GitLab README Check ---
+@st.cache_data(show_spinner=False)
 def check_file_in_project(project_path, file_path="README.md"):
     encoded_project = quote(project_path, safe="")
     encoded_file = quote(file_path, safe="")
@@ -82,7 +83,9 @@ if search_query:
 
         st.subheader("✅ Profile README Links")
         for i, row in filtered_df.iterrows():
-            if row["Has README"] == "✅":
-                st.markdown(row["Profile README"], unsafe_allow_html=True)
+            if row["Created PROFILE README"] == "✅":
+                st.markdown("Done with Profile Readme in gitlab", unsafe_allow_html=True)
+            else:
+                st.markdown("Need to create Profile Readme in gitlab", unsafe_allow_html=True)
     else:
         st.warning("No matching students found.")
