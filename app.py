@@ -12,7 +12,7 @@ headers = {
     "PRIVATE-TOKEN": GITLAB_TOKEN
 }
 
-st.config(page_title="BITS PS-1 Student Dashboard", layout="wide")
+qq
 # --- GitLab README Check ---
 @st.cache_data(show_spinner=False)
 def check_file_in_project(project_path, file_path="README.md"):
@@ -55,6 +55,8 @@ for _, row in df.iterrows():
 df["Created PROFILE README"] = has_readme_col
 
 # --- Streamlit UI ---
+st.set_page_config(page_title="BITS PS-1 Student Dashboard", layout="wide")
+
 st.title("BITS PS-1 Student Dashboard")
 
 st.subheader("📋 PS1 Students")
