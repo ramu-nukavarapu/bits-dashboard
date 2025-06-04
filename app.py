@@ -75,13 +75,13 @@ if search_query:
         st.write(f"### Matched Student(s): {matched_names}")
         st.dataframe(filtered_df)
 
-        st.subheader("📧 Emails")
+        st.subheader("Emails")
         st.text("\n".join(filtered_df['Email'].dropna()))
 
-        st.subheader("🧑‍💻 GitLab Usernames")
+        st.subheader("GitLab Usernames")
         st.text("\n".join(filtered_df['Gitlab usernames(code.swecha.org)'].dropna()))
 
-        st.subheader("✅ Profile README Status")
+        st.subheader("Profile README Status")
         for _, row in filtered_df.iterrows():
             if row["Created PROFILE README"] == "✅":
                 st.markdown(f"✅ `{row['Name']}` has created their GitLab profile README.")
