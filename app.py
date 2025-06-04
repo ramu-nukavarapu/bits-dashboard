@@ -4,7 +4,7 @@ import requests
 from urllib.parse import quote
 
 # --- Page Config ---
-st.set_page_config(page_title="BITS PS-1 Student Dashboard", layout="wide")
+st.set_page_config(page_title="BITS PS-1 Student Dashboard", layout="centered")
 
 # --- Constants ---
 CSV_PATH = "bits_students_info.csv"
@@ -57,7 +57,7 @@ df["Created PROFILE README"] = has_readme_col
 st.title("BITS PS-1 Student Dashboard")
 
 st.subheader("📋 PS1 Students")
-st.dataframe(df)
+st.dataframe(df[["Name", "Gitlab usernames(code.swecha.org)", "Created PROFILE README"]], use_container_width=True)
 
 # --- Search ---
 st.subheader("🔍 Search Student")
@@ -66,7 +66,6 @@ search_query = st.text_input("Search by Name, Email, or GitLab Username")
 if search_query:
     filtered_df = df[
         df['Name'].str.contains(search_query, case=False, na=False) |
-        df['Email'].str.contains(search_query, case=False, na=False) |
         df['Gitlab usernames(code.swecha.org)'].astype(str).str.contains(search_query, case=False, na=False)
     ]
 
