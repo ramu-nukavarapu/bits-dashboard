@@ -12,7 +12,6 @@ headers = {
     "PRIVATE-TOKEN": GITLAB_TOKEN
 }
 
-qq
 # --- GitLab README Check ---
 @st.cache_data(show_spinner=False)
 def check_file_in_project(project_path, file_path="README.md"):
