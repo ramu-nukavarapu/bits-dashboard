@@ -3,10 +3,13 @@ import pandas as pd
 import requests
 from urllib.parse import quote
 
+# --- Page Config ---
+st.set_page_config(page_title="BITS PS-1 Student Dashboard", layout="wide")
+
 # --- Constants ---
 CSV_PATH = "bits_students_info.csv"
 GITLAB_API_URL = "https://code.swecha.org/api/v4"
-GITLAB_TOKEN = st.secrets["ACCESS_TOKEN"]
+GITLAB_TOKEN = st.secrets["ACCESS_TOKEN"]  # stored securely in .streamlit/secrets.toml
 
 headers = {
     "PRIVATE-TOKEN": GITLAB_TOKEN
@@ -40,22 +43,17 @@ for _, row in df.iterrows():
         project_path = f"{username}/{username}"
         try:
             has_readme = check_file_in_project(project_path)
-            if has_readme:
-                has_readme_col.append("✅")
-            else:
-                has_readme_col.append("❌")
+            has_readme_col.append("✅" if has_readme else "❌")
         except Exception as e:
             has_readme_col.append("❌")
             st.error(f"Error checking {username}: {e}")
     else:
         has_readme_col.append("❌")
 
-# Add columns to DataFrame
+# Add column to DataFrame
 df["Created PROFILE README"] = has_readme_col
 
 # --- Streamlit UI ---
-st.set_page_config(page_title="BITS PS-1 Student Dashboard", layout="wide")
-
 st.title("BITS PS-1 Student Dashboard")
 
 st.subheader("📋 PS1 Students")
@@ -83,11 +81,11 @@ if search_query:
         st.subheader("🧑‍💻 GitLab Usernames")
         st.text("\n".join(filtered_df['Gitlab usernames(code.swecha.org)'].dropna()))
 
-        st.subheader("✅ Profile README Links")
-        for i, row in filtered_df.iterrows():
+        st.subheader("✅ Profile README Status")
+        for _, row in filtered_df.iterrows():
             if row["Created PROFILE README"] == "✅":
-                st.markdown("Done with Profile Readme in gitlab", unsafe_allow_html=True)
+                st.markdown(f"✅ `{row['Name']}` has created their GitLab profile README.")
             else:
-                st.markdown("Need to create Profile Readme in gitlab", unsafe_allow_html=True)
+                st.markdown(f"❌ `{row['Name']}` needs to create their GitLab profile README.")
     else:
         st.warning("No matching students found.")
