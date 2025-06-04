@@ -57,7 +57,7 @@ df["Created PROFILE README"] = has_readme_col
 st.title("BITS PS-1 Student Dashboard")
 
 st.subheader("📋 PS1 Students")
-st.dataframe(df[["Name", "Gitlab usernames(code.swecha.org)", "Created PROFILE README"]], use_container_width=True)
+st.dataframe(df[["Campus ID", "Name", "Gitlab usernames(code.swecha.org)", "Created PROFILE README"]], use_container_width=True)
 
 # --- Search ---
 st.subheader("🔍 Search Student")
@@ -72,10 +72,7 @@ if search_query:
     if not filtered_df.empty:
         matched_names = ", ".join(filtered_df['Name'].dropna().unique())
         st.write(f"### Matched Student(s): {matched_names}")
-        st.dataframe(filtered_df)
-
-        st.subheader("Emails")
-        st.text("\n".join(filtered_df['Email'].dropna()))
+        st.dataframe(filtered_df[["Campus ID", "Name", "Gitlab usernames(code.swecha.org)", "Created PROFILE README"]])
 
         st.subheader("GitLab Usernames")
         st.text("\n".join(filtered_df['Gitlab usernames(code.swecha.org)'].dropna()))
