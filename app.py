@@ -54,6 +54,7 @@ for _, row in df.iterrows():
 df["Created PROFILE README"] = has_readme_col
 
 # --- Streamlit UI ---
+st.config(page_title="BITS PS-1 Student Dashboard", layout="wide")
 st.title("BITS PS-1 Student Dashboard")
 
 st.subheader("📋 PS1 Students")
